@@ -1,22 +1,48 @@
 package com.employeerecord.application.entity;
 
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 
 public class EmploymentDetail {
+    @Id
+    @SequenceGenerator(
+            name = "id_sequence",
+            sequenceName = "id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "id_sequence")
+    @Column(name = "employee_id",nullable = false,updatable = false)
     private Long id;
+    @Column(name = "created_date",nullable = false,updatable = false)
     private LocalTime createdDate;
+    @Column()
     private LocalTime updatedDate;
+    @Column()
     private LocalTime deletedDate;
+    @Enumerated(EnumType.ORDINAL)
     private DataStatus dataStatus;
 
+    @Column
     private LocalTime startDate;
-    private Long employeeId;
+    @Column
     private DecimalFormat grossPay;
+    @Column
     private DecimalFormat payForIncomeTax;
+    @Column
     private DecimalFormat incomeTaxPaid;
+    @Column
     private DecimalFormat payForUsc;
+    @Column
     private DecimalFormat uscPaid;
+    @Column
     private String prsiClass;
+    @Column
     private DecimalFormat prsiPaid;
+
+    @OneToOne
+    @JoinColumn(name ="employee_id")
+    private Employee employee;
 }

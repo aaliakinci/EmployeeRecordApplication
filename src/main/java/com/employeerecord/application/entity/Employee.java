@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "departments")
+@Table(name = "employees")
 public class Employee{
     @Id
     @SequenceGenerator(
@@ -34,10 +34,16 @@ public class Employee{
     private String mail;
     @Column
     private Long phone;
+    @Column
+    private Double latitude;
+    @Column
+    private Double longitude;
 
     @OneToMany
     @JoinColumn(name = "department_id")
     private Department department;
+    private Long departmentId;
+
     @OneToMany
     @JoinColumn(name = "payroll_id")
     private List<Payroll> payrolls;
@@ -47,8 +53,4 @@ public class Employee{
     @OneToMany
     @JoinColumn(name = "lucy_winning_id")
     private List<LuckWinning> luckWinnings;
-    @Column
-    private Double latitude;
-    @Column
-    private Double longitude;
 }
