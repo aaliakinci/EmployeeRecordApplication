@@ -3,31 +3,34 @@ package com.employeerecord.application.entity;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.Period;
-
+import javax.persistence.Entity;
 @Entity
-@Table(name = "luck_winnings")
+@Table(name = "LuckWinning")
 public class LuckWinning {
-    @Id
-    @SequenceGenerator(
-            name = "id_sequence",
-            sequenceName = "id_sequence",
-            allocationSize = 1
-    )
+    public LuckWinning()
+    {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "id_sequence")
-    @Column(name = "employee_id",nullable = false,updatable = false)
+    }
+    public LuckWinning(Long employeeId, LocalDateTime period) {
+        this.winnerEmployeeId = employeeId;
+        this.period = period;
+        this.createdDate = LocalDateTime.now();
+        this.dataStatus = DataStatus.Inserted;
+    }
+    @javax.persistence.Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "luck_winning_id",nullable = false,updatable = false)
     private Long id;
     @Column(name = "created_date",nullable = false,updatable = false)
-    private LocalTime createdDate;
-    @Column()
-    private LocalTime updatedDate;
-    @Column()
-    private LocalTime deletedDate;
+    private LocalDateTime createdDate;
     @Enumerated(EnumType.ORDINAL)
     private DataStatus dataStatus;
 
-    private Long employeeId;
-    private LocalTime period;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+    private Long winnerEmployeeId;
+    private LocalDateTime period;
 }

@@ -1,18 +1,19 @@
 package com.employeerecord.application.service.employeeService;
 
-import com.employeerecord.application.model.Employee;
+import com.employeerecord.application.entity.Employee;
+
 
 import java.text.DecimalFormat;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IEmployeeService {
     boolean Create(Employee employee);
     boolean Update(Employee employee);
-    boolean Delete(int id);
-    Employee GetById(int id);
-    List<Employee> GetAllEmployees(LocalTime startedDate, DecimalFormat salary);
-
+    boolean Delete(long id);
+    Employee GetById(long id);
+    List<Employee> GetAllEmployees(LocalDateTime startedDate, Double salary);
+    List<Employee> GetAllEmployeesFull();
     boolean UpdateDepartmentLocation(double latitude, double longitude, long departmentId);
     Employee GetWinner();
 }

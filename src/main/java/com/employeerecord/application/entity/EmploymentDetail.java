@@ -1,48 +1,150 @@
 package com.employeerecord.application.entity;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 import java.text.DecimalFormat;
-import java.time.LocalTime;
-
+import java.time.LocalDateTime;
+import javax.persistence.Entity;
+@Entity
+@Table(name = "EmploymentDetail")
 public class EmploymentDetail {
-    @Id
-    @SequenceGenerator(
-            name = "id_sequence",
-            sequenceName = "id_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "id_sequence")
-    @Column(name = "employee_id",nullable = false,updatable = false)
+    @javax.persistence.Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "employment_detail_id",nullable = false,updatable = false)
     private Long id;
     @Column(name = "created_date",nullable = false,updatable = false)
-    private LocalTime createdDate;
-    @Column()
-    private LocalTime updatedDate;
-    @Column()
-    private LocalTime deletedDate;
+    private LocalDateTime createdDate;
     @Enumerated(EnumType.ORDINAL)
     private DataStatus dataStatus;
 
+    public EmploymentDetail() {
+    }
+
+    private LocalDateTime startedDate;
     @Column
-    private LocalTime startDate;
+    private Double grossPay;
     @Column
-    private DecimalFormat grossPay;
+    private Double payForIncomeTax;
     @Column
-    private DecimalFormat payForIncomeTax;
+    private Double incomeTaxPaid;
     @Column
-    private DecimalFormat incomeTaxPaid;
+    private Double payForUsc;
     @Column
-    private DecimalFormat payForUsc;
-    @Column
-    private DecimalFormat uscPaid;
+    private Double uscPaid;
     @Column
     private String prsiClass;
     @Column
-    private DecimalFormat prsiPaid;
+    private Double prsiPaid;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="employee_id")
     private Employee employee;
+    private Long employeeDetailId;
+
+    public EmploymentDetail(LocalDateTime startDate, Double grossPay, Double payForIncomeTax, Double incomeTaxPaid, Double payForUsc, Double uscPaid, String prsiClass, Double prsiPaid) {
+        this.startedDate = startDate;
+        this.grossPay = grossPay;
+        this.payForIncomeTax = payForIncomeTax;
+        this.incomeTaxPaid = incomeTaxPaid;
+        this.payForUsc = payForUsc;
+        this.uscPaid = uscPaid;
+        this.prsiClass = prsiClass;
+        this.prsiPaid = prsiPaid;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public DataStatus getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(DataStatus dataStatus) {
+        this.dataStatus = dataStatus;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startedDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startedDate = startDate;
+    }
+
+    public Double getGrossPay() {
+        return grossPay;
+    }
+
+    public void setGrossPay(Double grossPay) {
+        this.grossPay = grossPay;
+    }
+
+    public Double getPayForIncomeTax() {
+        return payForIncomeTax;
+    }
+
+    public void setPayForIncomeTax(Double payForIncomeTax) {
+        this.payForIncomeTax = payForIncomeTax;
+    }
+
+    public Double getIncomeTaxPaid() {
+        return incomeTaxPaid;
+    }
+
+    public void setIncomeTaxPaid(Double incomeTaxPaid) {
+        this.incomeTaxPaid = incomeTaxPaid;
+    }
+
+    public Double getPayForUsc() {
+        return payForUsc;
+    }
+
+    public void setPayForUsc(Double payForUsc) {
+        this.payForUsc = payForUsc;
+    }
+
+    public Double getUscPaid() {
+        return uscPaid;
+    }
+
+    public void setUscPaid(Double uscPaid) {
+        this.uscPaid = uscPaid;
+    }
+
+    public String getPrsiClass() {
+        return prsiClass;
+    }
+
+    public void setPrsiClass(String prsiClass) {
+        this.prsiClass = prsiClass;
+    }
+
+    public Double getPrsiPaid() {
+        return prsiPaid;
+    }
+
+    public void setPrsiPaid(Double prsiPaid) {
+        this.prsiPaid = prsiPaid;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

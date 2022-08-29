@@ -1,15 +1,16 @@
 package com.employeerecord.application.model;
 
-import java.text.DecimalFormat;
-import java.time.LocalTime;
-import java.time.Period;
+import com.employeerecord.application.entity.SalaryType;
 
-public class Payroll extends Base {
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+
+public class PayrollDTO extends Base {
     private Long employeeId;
     private String companyName;
     private String tradeName;
     private String period;
-    private LocalTime dateOfStart;
+    private LocalDateTime dateOfStart;
     private DecimalFormat salary;
     private SalaryType salaryType;
 }
